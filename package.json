@@ -1,0 +1,13 @@
+{
+  "name": "mercadoagil",
+  "version": "1.0.0",
+  "description": "Microsserviço de pedidos do MercadoÁgil",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  }
+}
