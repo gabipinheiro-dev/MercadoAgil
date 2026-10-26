@@ -1,159 +1,43 @@
-export const dadosInicias = {
+const CNPJ_TECHBAHIA = '11.222.333/0001-81';
+const CNPJ_LIVRARIA_SOL = '11.444.777/0001-61';
+const CNPJ_EMPORIO = '06.990.590/0001-23';
 
-clientes:[
-{
- id: "cli_1",
- nome:"Valda Maria",
- cpf: "123.456.789-00",
- regiao: "Nordeste"
+export const vendedoresSeed = [
+  { nomeLoja: 'TechBahia', cnpj: CNPJ_TECHBAHIA, email: 'contato@techbahia.com.br' },
+  { nomeLoja: 'Livraria Sol', cnpj: CNPJ_LIVRARIA_SOL, email: 'vendas@livrariasol.com.br' },
+  { nomeLoja: 'Empório Nordestino', cnpj: CNPJ_EMPORIO, email: 'oi@emporionordestino.com.br' },
+];
 
-},
+export const clientesSeed = [
+  { nome: 'Ana Souza', email: 'ana.souza@exemplo.com', cpf: '529.982.247-25', uf: 'BA' },
+  { nome: 'Bruno Lima', email: 'bruno.lima@exemplo.com', cpf: '111.444.777-35', uf: 'SP' },
+  { nome: 'Carla Mendes', email: 'carla.mendes@exemplo.com', cpf: '123.456.789-09', uf: 'RS' },
+];
 
-{
-    id: "cli_2",
-    nome:"João da Silva",
-    cpf: "987.654.321-00",
-    regiao: "Sudeste"
+export const produtosSeed = [
+  { nome: 'Mouse', preco: 120, categoria: 'eletronicos', vendedorCnpj: CNPJ_TECHBAHIA, estoque: 5 },
+  { nome: 'Teclado Mecânico', preco: 250, categoria: 'eletronicos', vendedorCnpj: CNPJ_TECHBAHIA, estoque: 3 },
+  { nome: 'Fone Bluetooth', preco: 180, categoria: 'eletronicos', vendedorCnpj: CNPJ_TECHBAHIA, estoque: 8 },
+  { nome: 'Livro de JavaScript', preco: 80, categoria: 'livros', vendedorCnpj: CNPJ_LIVRARIA_SOL, estoque: 10 },
+  { nome: 'Livro de Node.js', preco: 95, categoria: 'livros', vendedorCnpj: CNPJ_LIVRARIA_SOL, estoque: 6 },
+  { nome: 'Café Torrado 500g', preco: 24.9, categoria: 'alimentos', vendedorCnpj: CNPJ_EMPORIO, estoque: 20 },
+  { nome: 'Camiseta Básica', preco: 59.9, categoria: 'vestuario', vendedorCnpj: CNPJ_EMPORIO, estoque: 15 },
+  { nome: 'Jarra Térmica', preco: 89.9, categoria: 'casa', vendedorCnpj: CNPJ_EMPORIO, estoque: 4 },
+];
 
-},
+export const cuponsSeed = [
+  { codigo: 'BEMVINDO10', tipo: 'percentual', valor: 10, validade: '2027-06-30', valorMinimo: 50, cumulativo: true },
+  { codigo: 'PDA15', tipo: 'fixo', valor: 15, validade: '2027-06-30', valorMinimo: 100, cumulativo: true },
+  { codigo: 'FRETEZERO', tipo: 'frete', valor: 0, validade: '2027-06-30', valorMinimo: 150, cumulativo: false },
+];
 
-{
-    id: "cli_3",
-    nome:"Maria Oliveira",
-    cpf: "456.789.123-00",
-    regiao: "Sul"
-
-
-
-
-},
-
-{
-    id: "cli_4",    
-    nome:"Carlos Souza",
-    cpf: "321.654.987-00",
-    regiao: "Centro-Oeste"
+// Retorna a lista de erros de carga (vazia quando tudo entrou)
+export function carregarSeed(marketplace) {
+  const resultados = [
+    ...vendedoresSeed.map((dados) => marketplace.cadastrarVendedor(dados)),
+    ...clientesSeed.map((dados) => marketplace.cadastrarCliente(dados)),
+    ...produtosSeed.map((dados) => marketplace.cadastrarProduto(dados)),
+    ...cuponsSeed.map((dados) => marketplace.cadastrarCupom(dados)),
+  ];
+  return resultados.filter((r) => !r.ok).flatMap((r) => r.erros);
 }
-
-],
-
-vendedores :[
-    {
-        id: "vend_1",
-        nome:"TechBashia",
-        cnpj: "12.345.678/0001-09",
-        
-    },
-    {
-        id: "vend_2",
-        nome:"Livraria Sol",
-        cnpj: "98.765.432/0001-01",
-    },
-    {
-        id: "vend_3",
-        nome:"EletroMundo",
-        cnpj: "45.678.901/0001-23", 
-    }
-],
-
-produtos : [
-
-    {
-        id: "prod_1",
-        nome: "Mouse Gamer",
-        preco: 120.00,
-        categoria: "Eletrônicos",
-        vendedorId:"vend_1", //vendedores.techbahia
-        qtdEstoque: 18        
-    },
-
-
-    {
-        id: "prod_2",
-        nome: "livro",
-        preco: 80.00,
-        categoria: "livros",
-        vendedorId:"vend_2", //vendedores.Livraria Sol
-        qtdEstoque:  3      
-    },
-
-
-
-    {
-        id: "prod_3",
-        nome: "Smart TV",
-        preco: 2500.00,
-        categoria: "Eletrônicos",
-        vendedorId:"vend_3", //vendedores.EletroMundo
-        qtdEstoque:  5
-
-
-
-    },
-    {
-        id: "prod_4",
-        nome: "Notebook",
-        preco: 3500.00,
-        categoria: "Eletrônicos",
-        vendedorId:"vend_1", //vendedores.TechBashia
-        qtdEstoque:  10
-    },
-
-    {
-        id: "prod_5",
-        nome: "Carderno Inteligente",
-        preco: 50.00,
-        categoria: "Papelaria",
-        vendedorId:"vend_2", //vendedores.Livraria Sol
-        qtdEstoque:  20
-    },
-
-
-
-    {
-        id: "prod_6",
-        nome : "Fone de Ouvido",
-        preco: 150.00,
-        categoria: "Eletrônicos",
-        vendedorId:"vend_3", //vendedores.EletroMundo
-        qtdEstoque:  15
-    },
-
-
-    {
-        id: "prod_7",
-        nome: "Mochila Gamer",
-        preco: 900.00,
-        categoria: "Vestuário",
-        vendedorId:"vend_1", //vendedores.TechBashia
-        qtdEstoque:  25
-
-    }
-
-
-
-],
-
-cupons:[
-    {
-        codigo: "BEMVINDO10",
-        tipo: "percentual",
-        desconto: 10,
-        validade: "2027-01-17"
-    },
-
-    {
-        codigo: "PDA15",
-        tipo: "fixo",
-        desconto: 15,
-        validade: "2027-02-07"
-    },
-    {
-        codigo: "FRETEGRATIS",
-        tipo: "frete",
-        desconto: 100,
-        validade: "2027-03-15"
-    }
-]
-};
-
