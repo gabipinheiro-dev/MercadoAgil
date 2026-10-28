@@ -1,4 +1,4 @@
-// Relatórios financeiros: faturamento, ticket médio, por categoria, repasse e top 3 (só pedidos confirmados).
+import { arredondar } from '../models/dinheiro.js';
 export function gerarRelatorio(pedidos) {
   const resumos = pedidos
     .filter((pedido) => pedido.status === 'confirmado')
